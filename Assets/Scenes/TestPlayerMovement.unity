@@ -332,7 +332,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -849,6 +849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1377126714}
   - component: {fileID: 1377126713}
+  - component: {fileID: 1377126715}
   m_Layer: 0
   m_Name: Breakpoint
   m_TagString: Untagged
@@ -897,6 +898,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 50}
+--- !u!114 &1377126715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377126712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf54a49222bb5e47924425b948ab71c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1382685327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,16 +1143,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917b6b3a4905e8745a29622a2ef7dbb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runSpeed: 10
-  _jumpForce: 10
+  runSpeed: 10
+  jumpForce: 10
   fallMultiplier: 2.5
-  _lowJumpMultiplier: 2
-  _raycastDistance: 2
-  _layerMask:
+  lowJumpMultiplier: 2
+  raycastDistance: 3
+  layerMask:
     serializedVersion: 2
     m_Bits: 256
-  _isGrounded: 0
-  _resetJump: 0
+  isGrounded: 0
+  resetJump: 0
+  uncontrollable: 0
 --- !u!114 &1472948595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1315,7 +1329,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7809527, y: 1}
+    m_SensorSize: {x: 2.4579647, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
