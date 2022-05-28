@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     private const string DESTROYABLE = "Destroyable";
     public bool hasDestroyed = false;
+    public bool hasHitted = false;
 
     // Start is called before the first frame update
     void Start()

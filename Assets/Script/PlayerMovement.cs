@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] bool resetJump = false;
 
     public bool uncontrollable = false;
-
+    public float cacheX = -0.5f;
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -25,8 +25,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (horizontalInput != 0) Move();
-        if (uncontrollable) return;
+        if (uncontrollable)
+        {
+            cacheX = Mathf.Clamp(cacheX += -1f, -10f, 0f);
+            Debug.Log(rigid.velocity.x);
+            rigid.velocity = new Vector2(cacheX, rigid.velocity.y);
+            return;
+        }
 
         float horizontalInput = Input.GetAxis("Horizontal") * runSpeed;
         rigid.velocity = new Vector2(horizontalInput, rigid.velocity.y);
@@ -57,16 +62,6 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log(hitInfo.collider.name);
             if(!resetJump) isGrounded = true;
         }
-    }
-
-    public void LostControl()
-    {
-        rigid.velocity += new Vector2(10f * Time.deltaTime, rigid.velocity.y);
-    }
-
-    public float GetXVelocity()
-    {
-        return rigid.velocity.x;
     }
 
     IEnumerator ResetJumpRoutine()
