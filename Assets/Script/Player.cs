@@ -5,13 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private const string DESTROYABLE = "Destroyable";
-
     public bool hasDestroyed = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
