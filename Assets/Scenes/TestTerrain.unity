@@ -2350,6 +2350,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasDestroyed: 0
   hasHitted: 0
+  soundManager: {fileID: 998594114}
+  anim: {fileID: 0}
 --- !u!50 &654284463
 Rigidbody2D:
   serializedVersion: 4
@@ -3687,7 +3689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba031bb81f705594ca367bafc81dab9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundManager: {fileID: 0}
+  soundManager: {fileID: 998594114}
   bubbleRight: {fileID: 2132428716}
   bubbleLeft: {fileID: 1717308412}
   reset: {fileID: 1761819731}
@@ -4994,13 +4996,13 @@ PolygonCollider2D:
       - {x: 20.8125, y: -1.659375}
       - {x: 20.109375, y: -1.9124999}
       - {x: 18.534374, y: -2.4468749}
-      - {x: 18.309374, y: -2.475}
+      - {x: 18.302797, y: -2.5078797}
       - {x: 17.915625, y: -2.64375}
-      - {x: 17.690624, y: -2.671875}
+      - {x: 17.71693, y: -2.7047546}
       - {x: 17.38125, y: -2.8125}
-      - {x: 17.15625, y: -2.8406248}
+      - {x: 17.149675, y: -2.8866563}
       - {x: 16.846874, y: -2.9812498}
-      - {x: 16.621874, y: -3.0093749}
+      - {x: 16.648178, y: -3.0422547}
       - {x: 16.3125, y: -3.1499999}
       - {x: 16.0875, y: -3.20625}
       - {x: 15.91875, y: -3.2624998}
@@ -5146,7 +5148,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.420354, y: 1}
+    m_SensorSize: {x: 1.778761, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

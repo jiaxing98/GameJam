@@ -26,9 +26,10 @@ public class Explodepoint : MonoBehaviour
         if (!collision.gameObject.TryGetComponent<Player>(out var player)) return;
         if (player.hasHitted)
         {
-            //soundManager.Stop(SoundType.Move);
-            //soundManager.Play(SoundType.Tumble);
-            //SoundManager.OnGameOver?.Invoke();
+            SoundManager.OnGameOver?.Invoke();
+            soundManager.Stop(SoundType.Move);
+            soundManager.Play(SoundType.Tumble);
+            player.TruckDestroyed();
             StartCoroutine(DisplayEndGameMessage());
         }
 

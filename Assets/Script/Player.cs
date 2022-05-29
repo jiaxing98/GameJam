@@ -8,6 +8,14 @@ public class Player : MonoBehaviour
     public bool hasDestroyed = false;
     public bool hasHitted = false;
 
+    public SoundManager soundManager;
+    public Animator anim;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         Debug.Log("something enter");
@@ -20,6 +28,12 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(HouseDestroyed(house));
         }
+    }
+
+    public void TruckDestroyed()
+    {
+        anim.SetBool("Destroyed", true);
+        soundManager.Play(SoundType.Tumble);
     }
 
     IEnumerator StartTreeFall(Tree tree)
