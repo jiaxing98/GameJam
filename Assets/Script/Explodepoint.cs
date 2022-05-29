@@ -19,7 +19,7 @@ public class Explodepoint : MonoBehaviour
         if (player.hasHitted)
         {
             soundManager.Stop(SoundType.Move);
-            soundManager.Play(SoundType.HouseCrashed);
+            soundManager.Play(SoundType.Tumble);
             SoundManager.OnGameOver?.Invoke();
             StartCoroutine(WaitForAudioEnd(player));
         }

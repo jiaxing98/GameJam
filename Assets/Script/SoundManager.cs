@@ -53,11 +53,12 @@ public enum SoundType
     EasterEgg = 0,
     Move = 1,
     Jump = 2,
-    TreeCry = 3,
-    TreeFall = 4,
-    TreeSpirit = 5,
-    HouseCrashed = 6,
-    BGMStart = 7,
-    BGMEnd = 8
+    Tumble = 3,
+    TreeCry = 4,
+    TreeFall = 5,
+    TreeSpirit = 6,
+    HouseCrashed = 7,
+    BGMStart = 8,
+    BGMEnd = 9
 
 }
