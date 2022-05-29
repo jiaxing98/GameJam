@@ -7,11 +7,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rigid;
     [SerializeField] float runSpeed = 10f;
     [SerializeField] float jumpForce = 10f;
-    [SerializeField] float fallMultiplier = 2.5f;
-    [SerializeField] float lowJumpMultiplier = 2f;
-
-    [SerializeField] float raycastDistance = 3f;
-    [SerializeField] LayerMask layerMask = 1 << 8;
 
     public bool uncontrollable = false;
     public float cacheX = -0.5f;

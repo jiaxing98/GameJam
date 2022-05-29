@@ -16,20 +16,27 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(StartTreeFall(tree));
         }
+        else if (collider.gameObject.TryGetComponent<House>(out var house))
+        {
+            StartCoroutine(HouseDestroyed(house));
+        }
     }
 
     IEnumerator StartTreeFall(Tree tree)
     {
-        Tree.count--;
-        if (Tree.count > 0) tree.TreeCry();
-        else tree.NoMoreTree();
-
         tree.TreeFall();
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(0.5f);
         tree.TreeSpirit();
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
 
         hasDestroyed = true;
         tree.gameObject.SetActive(false);
+    }
+
+    IEnumerator HouseDestroyed(House house)
+    {
+        house.HouseDestroyed();
+        yield return new WaitForSeconds(0.5f);
+        house.gameObject.SetActive(false);
     }
 }

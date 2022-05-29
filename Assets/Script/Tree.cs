@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Tree : MonoBehaviour
 {
-    public static int count = 2;
-
     public SoundManager soundManager;
+    public Animator anim;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     public void TreeCry()
     {
@@ -15,6 +19,7 @@ public class Tree : MonoBehaviour
 
     public void TreeFall()
     {
+        anim.SetBool("Die", true);
         soundManager.Play(SoundType.TreeFall);
     }
 
