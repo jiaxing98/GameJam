@@ -24,8 +24,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (uncontrollable)
         {
-            cacheX = Mathf.Clamp(cacheX += -1f, -10f, 0f);
-            Debug.Log(rigid.velocity.x);
+            cacheX = Mathf.Clamp(cacheX += -1f, -6f, 0f);
             rigid.velocity = new Vector2(cacheX, rigid.velocity.y);
             return;
         }

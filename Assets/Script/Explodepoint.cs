@@ -7,6 +7,10 @@ public class Explodepoint : MonoBehaviour
 {
     private BoxCollider2D box;
     public SoundManager soundManager;
+
+    public GameObject bubbleRight;
+    public GameObject bubbleLeft;
+
     private void Start()
     {
         box = GetComponent<BoxCollider2D>();
@@ -18,11 +22,13 @@ public class Explodepoint : MonoBehaviour
         if (!collision.gameObject.TryGetComponent<Player>(out var player)) return;
         if (player.hasHitted)
         {
-            soundManager.Stop(SoundType.Move);
-            soundManager.Play(SoundType.Tumble);
-            SoundManager.OnGameOver?.Invoke();
-            StartCoroutine(WaitForAudioEnd(player));
+            //soundManager.Stop(SoundType.Move);
+            //soundManager.Play(SoundType.Tumble);
+            //SoundManager.OnGameOver?.Invoke();
+            StartCoroutine(DisplayEndGameMessage());
         }
+
+        player.enabled = false;
     }
 
     public void OffTriggered()
@@ -30,9 +36,11 @@ public class Explodepoint : MonoBehaviour
         box.isTrigger = false;
     }
 
-    IEnumerator WaitForAudioEnd(Player player)
+    IEnumerator DisplayEndGameMessage()
     {
-        yield return new WaitForSeconds(0.5f);
-        Destroy(player.gameObject);
+        yield return new WaitForSeconds(1f);
+        bubbleLeft.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        bubbleRight.SetActive(true);
     }
 }
