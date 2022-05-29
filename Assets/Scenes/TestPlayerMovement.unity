@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba031bb81f705594ca367bafc81dab9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 804337645}
 --- !u!212 &703603595
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -247,6 +248,75 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &804337644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 804337646}
+  - component: {fileID: 804337645}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &804337645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804337644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05f7a746b35fa3447af9232a44b1cd62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - soundType: 2
+    clip: {fileID: 8300000, guid: fb6888654a5171944ae6e57065a61c1e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - soundType: 1
+    clip: {fileID: 8300000, guid: b49dbe22a3ec6cb49b1b6b6522792ac4, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - soundType: 6
+    clip: {fileID: 8300000, guid: af398e54774915e45b8097fcb08daccd, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - soundType: 7
+    clip: {fileID: 8300000, guid: a7ba738cbab5be24780f24c24ca645d7, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+--- !u!4 &804337646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804337644}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -26.370726, y: -5.133191, z: -0.011326451}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &808754143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,6 +1402,7 @@ MonoBehaviour:
   resetJump: 0
   uncontrollable: 0
   cacheX: -0.5
+  soundManager: {fileID: 804337645}
 --- !u!114 &1472948595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1508,7 +1579,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.4579647, y: 1}
+    m_SensorSize: {x: 2.384966, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
