@@ -17,9 +17,13 @@ public class PlayerMovement : MonoBehaviour
 
     public bool uncontrollable = false;
     public float cacheX = -0.5f;
+
+    public SoundManager soundManager;
+
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+        soundManager.Play(SoundType.Move);
     }
 
     // Update is called once per frame
@@ -38,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            soundManager.Play(SoundType.Jump);
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
             isGrounded = false;
             resetJump = true;
