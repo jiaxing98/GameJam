@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     IEnumerator HouseDestroyed(House house)
     {
         house.HouseDestroyed();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         house.gameObject.SetActive(false);
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Explodepoint : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class Explodepoint : MonoBehaviour
 
     public GameObject bubbleRight;
     public GameObject bubbleLeft;
+
+    public Button reset;
+    public Button quit;
 
     private void Start()
     {
@@ -42,5 +46,8 @@ public class Explodepoint : MonoBehaviour
         bubbleLeft.SetActive(true);
         yield return new WaitForSeconds(1f);
         bubbleRight.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        reset.gameObject.SetActive(true);
+        quit.gameObject.SetActive(true);
     }
 }
