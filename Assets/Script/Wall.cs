@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Wall : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class Wall : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.TryGetComponent<Player>(out var actor)) return;
-        if (!actor.hasDestroyed) box.isTrigger = true;
+        if (!actor.hasDestroyed)
+        {
+            SceneManager.LoadScene("EasterEgg");
+        }
     }
 }

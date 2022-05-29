@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tree : MonoBehaviour
 {
-    public static int count = 1;
+    public static int count = 2;
 
     public SoundManager soundManager;
 
