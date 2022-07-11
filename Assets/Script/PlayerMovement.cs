@@ -25,39 +25,37 @@ public class PlayerMovement : MonoBehaviour
 	public bool isOnGround;                 //Is the player on the ground?
 	public bool isJumping;                  //Is player jumping?
 
-	private PlayerInput input;                      //The current inputs for the player
-	private BoxCollider2D bodyCollider;             //The collider component
-	private Rigidbody2D rigidBody;                  //The rigidbody component
+	private PlayerInput _input;                      //The current inputs for the player
+	private BoxCollider2D _bodyCollider;             //The collider component
+	private Rigidbody2D _rigidBody;                  //The rigidbody component
 
-	private float jumpTime;                         //Variable to hold jump duration
-	private float coyoteTime;                       //Variable to hold coyote duration
-	private float playerHeight;                     //Height of the player
-	private float _currentHorizontalSpeed;
-	private float _currentVerticalSpeed;
+	private float _jumpTime;                         //Variable to hold jump duration
+	private float _coyoteTime;                       //Variable to hold coyote duration
+	private float _playerHeight;                     //Height of the player
 
-	private float originalXScale;                   //Original scale on X axis
-	private int direction = 1;                      //Direction player is facing
+	private float _originalXScale;                   //Original scale on X axis
+	private int _direction = 1;                      //Direction player is facing
 
-	Vector2 colliderStandSize;              //Size of the standing collider
+	private Vector2 _colliderStandSize;              //Size of the standing collider
 
-	void Start()
+	private void Start()
 	{
 		//Get a reference to the required components
-		input = GetComponent<PlayerInput>();
-		rigidBody = GetComponent<Rigidbody2D>();
-		bodyCollider = GetComponent<BoxCollider2D>();
+		_input = GetComponent<PlayerInput>();
+		_rigidBody = GetComponent<Rigidbody2D>();
+		_bodyCollider = GetComponent<BoxCollider2D>();
 
 		//Record the original x scale of the player
-		originalXScale = transform.localScale.x;
+		_originalXScale = transform.localScale.x;
 
 		//Record the player's height from the collider
-		playerHeight = bodyCollider.size.y;
+		_playerHeight = _bodyCollider.size.y;
 
 		//Record initial collider size and offset
-		colliderStandSize = bodyCollider.size;
+		_colliderStandSize = _bodyCollider.size;
 	}
 
-	void FixedUpdate()
+	private void FixedUpdate()
 	{
 		//Check the environment to determine status
 		PhysicsCheck();
@@ -67,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 		MidAirMovement();
 	}
 
-	void PhysicsCheck()
+	private void PhysicsCheck()
 	{
 		//Start by assuming the player isn't on the ground and the head isn't blocked
 		isOnGround = false;
@@ -81,38 +79,38 @@ public class PlayerMovement : MonoBehaviour
 			isOnGround = true;
 	}
 
-	void GroundMovement()
+	private void GroundMovement()
 	{
 		//Calculate the desired velocity based on inputs
-		float xVelocity = speed * input.horizontal;
+		float xVelocity = speed * _input.horizontal;
 
 		//If the sign of the velocity and direction don't match, flip the character
-		if (xVelocity * direction < 0f)
+		if (xVelocity * _direction < 0f)
 			FlipCharacterDirection();
 
 		//Apply the desired velocity 
-		rigidBody.velocity = new Vector2(xVelocity, rigidBody.velocity.y);
+		_rigidBody.velocity = new Vector2(xVelocity, _rigidBody.velocity.y);
 
 		//If the player is on the ground, extend the coyote time window
 		if (isOnGround)
-			coyoteTime = Time.time + coyoteDuration;
+			_coyoteTime = Time.time + coyoteDuration;
 	}
 
-	void MidAirMovement()
+	private void MidAirMovement()
 	{
 		//If the jump key is pressed AND the player isn't already jumping AND EITHER
 		//the player is on the ground or within the coyote time window...
-		if (input.jumpPressed && !isJumping && (isOnGround || coyoteTime > Time.time))
+		if (_input.jumpPressed && !isJumping && (isOnGround || _coyoteTime > Time.time))
 		{
 			//...The player is no longer on the groud and is jumping...
 			isOnGround = false;
 			isJumping = true;
 
 			//...record the time the player will stop being able to boost their jump...
-			jumpTime = Time.time + jumpHoldDuration;
+			_jumpTime = Time.time + jumpHoldDuration;
 
 			//...add the jump force to the rigidbody...
-			rigidBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+			_rigidBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
 
 			//...and tell the Audio Manager to play the jump audio
 			AudioManager.PlayJumpAudio();
@@ -121,29 +119,29 @@ public class PlayerMovement : MonoBehaviour
 		else if (isJumping)
 		{
 			//...and the jump button is held, apply an incremental force to the rigidbody...
-			if (input.jumpHeld)
-				rigidBody.AddForce(new Vector2(0f, jumpHoldForce), ForceMode2D.Impulse);
+			if (_input.jumpHeld)
+				_rigidBody.AddForce(new Vector2(0f, jumpHoldForce), ForceMode2D.Impulse);
 
 			//...and if jump time is past, set isJumping to false
-			if (jumpTime <= Time.time)
+			if (_jumpTime <= Time.time)
 				isJumping = false;
 		}
 
 		//If player is falling to fast, reduce the Y velocity to the max
-		if (rigidBody.velocity.y < maxFallSpeed)
-			rigidBody.velocity = new Vector2(rigidBody.velocity.x, maxFallSpeed);
+		if (_rigidBody.velocity.y < maxFallSpeed)
+			_rigidBody.velocity = new Vector2(_rigidBody.velocity.x, maxFallSpeed);
 	}
 
-	void FlipCharacterDirection()
+	private void FlipCharacterDirection()
 	{
 		//Turn the character by flipping the direction
-		direction *= -1;
+		_direction *= -1;
 
 		//Record the current scale
 		Vector3 scale = transform.localScale;
 
 		//Set the X scale to be the original times the direction
-		scale.x = originalXScale * direction;
+		scale.x = _originalXScale * _direction;
 
 		//Apply the new scale
 		transform.localScale = scale;
@@ -151,14 +149,14 @@ public class PlayerMovement : MonoBehaviour
 
 	//These two Raycast methods wrap the Physics2D.Raycast() and provide some extra
 	//functionality
-	RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length)
+	private RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length)
 	{
 		//Call the overloaded Raycast() method using the ground layermask and return 
 		//the results
 		return Raycast(offset, rayDirection, length, groundLayer);
 	}
 
-	RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length, LayerMask mask)
+	private RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length, LayerMask mask)
 	{
 		//Record the player's position
 		Vector2 pos = transform.position;
