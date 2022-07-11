@@ -134,33 +134,6 @@ public class PlayerMovement : MonoBehaviour
 			rigidBody.velocity = new Vector2(rigidBody.velocity.x, maxFallSpeed);
 	}
 
-	#region Gravity
-	[Header("GRAVITY")][SerializeField] private float _fallClamp = -40f;
-	[SerializeField] private float _minFallSpeed = 80f;
-	[SerializeField] private float _maxFallSpeed = 120f;
-	private float _fallSpeed;
-
-	private void CalculateGravity()
-	{
-		if (isOnGround)
-		{
-			// Move out of the ground
-			if (_currentVerticalSpeed < 0) _currentVerticalSpeed = 0;
-		}
-		else
-		{
-			// Add downward force while ascending if we ended the jump early
-			//var fallSpeed = _endedJumpEarly && _currentVerticalSpeed > 0 ? _fallSpeed * _jumpEndEarlyGravityModifier : _fallSpeed;
-
-			// Fall
-			//_currentVerticalSpeed -= fallSpeed * Time.deltaTime;
-
-			// Clamp
-			if (_currentVerticalSpeed < _fallClamp) _currentVerticalSpeed = _fallClamp;
-		}
-	}
-	#endregion
-
 	void FlipCharacterDirection()
 	{
 		//Turn the character by flipping the direction
