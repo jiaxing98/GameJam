@@ -15,7 +15,7 @@ public class Breakpoint : MonoBehaviour
 
         if (collision.gameObject.TryGetComponent<PlayerMovement>(out var movement))
         {
-            movement.uncontrollable = true;
+            //movement.uncontrollable = true;
             player.hasHitted = true;
             OnHitted?.Invoke();
             //player.x += (1f - hitNormal.y) * hitNormal.x * (speed - slideFriction);
