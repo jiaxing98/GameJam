@@ -2,6 +2,7 @@
 // inputs so swapping between mobile and standalone is simpler and 2) keeping inputs
 // from Update() in sync with FixedUpdate()
 
+using System.Threading.Tasks;
 using UnityEngine;
 
 //We first ensure this script runs before all other player scripts to prevent laggy
@@ -12,8 +13,12 @@ public class PlayerInput : MonoBehaviour
 	public float horizontal;      //Float that stores horizontal input
 	public bool jumpHeld;         //Bool that stores jump pressed
 	public bool jumpPressed;      //Bool that stores jump held
+	
+	public float interval;
+	[Range(0, 1)] public float inputValue;
 
-	bool readyToClear;                              //Bool used to keep input in sync
+	private bool readyToClear;            //Bool used to keep input in sync
+	private float timer;
 
 	void Update()
 	{
@@ -53,10 +58,23 @@ public class PlayerInput : MonoBehaviour
 	void ProcessInputs()
 	{
 		//Accumulate horizontal axis input
-		horizontal += Input.GetAxis("Horizontal");
+		//horizontal += Input.GetAxis("Horizontal");
+		horizontal += Acceleration();
+
 
 		//Accumulate button inputs
 		jumpPressed = jumpPressed || Input.GetButtonDown("Jump");
 		jumpHeld = jumpHeld || Input.GetButton("Jump");
+	}
+
+	float Acceleration()
+    {
+		timer += Time.deltaTime;
+		if(timer >= interval)
+        {
+			inputValue = Mathf.Clamp(inputValue + 5 * Time.deltaTime, -1, 1);
+			timer = 0f;
+		}
+		return inputValue;
 	}
 }
