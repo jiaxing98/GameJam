@@ -10,17 +10,31 @@ using UnityEngine;
 [DefaultExecutionOrder(-100)]
 public class PlayerInput : MonoBehaviour
 {
-	public float horizontal;      //Float that stores horizontal input
-	public bool jumpHeld;         //Bool that stores jump pressed
-	public bool jumpPressed;      //Bool that stores jump held
-	
+	[Header("Status Check")]
+	public float horizontal;		//Float that stores horizontal input
+	public bool jumpHeld;			//Bool that stores jump pressed
+	public bool jumpPressed;		//Bool that stores jump held
+	public bool isFalling = false;
+
+	[Header("Tweak Value")]
 	public float interval;
-	[Range(0, 1)] public float inputValue;
+	public float velocity;
+	public float inputValue = 0.3f;
 
 	private bool readyToClear;            //Bool used to keep input in sync
 	private float timer;
 
-	void Update()
+    private void Start()
+    {
+		Breakpoint.OnHitted += PlayerFalling;
+    }
+
+    private void OnDestroy()
+    {
+		Breakpoint.OnHitted -= PlayerFalling;
+    }
+
+    private void Update()
 	{
 		//Clear out existing input values
 		ClearInput();
@@ -35,14 +49,14 @@ public class PlayerInput : MonoBehaviour
 		horizontal = Mathf.Clamp(horizontal, -1f, 1f);
 	}
 
-	void FixedUpdate()
+	private void FixedUpdate()
 	{
 		//In FixedUpdate() we set a flag that lets inputs to be cleared out during the 
 		//next Update(). This ensures that all code gets to use the current inputs
 		readyToClear = true;
 	}
 
-	void ClearInput()
+	private void ClearInput()
 	{
 		//If we're not ready to clear input, exit
 		if (!readyToClear) return;
@@ -55,26 +69,33 @@ public class PlayerInput : MonoBehaviour
 		readyToClear = false;
 	}
 
-	void ProcessInputs()
+	private void ProcessInputs()
 	{
 		//Accumulate horizontal axis input
 		//horizontal += Input.GetAxis("Horizontal");
-		horizontal += Acceleration();
-
+		horizontal += Acceleration(isFalling);
 
 		//Accumulate button inputs
 		jumpPressed = jumpPressed || Input.GetButtonDown("Jump");
 		jumpHeld = jumpHeld || Input.GetButton("Jump");
 	}
 
-	float Acceleration()
+	private float Acceleration(bool isFalling)
     {
+		velocity = isFalling && velocity > 0 ? -velocity : velocity;
 		timer += Time.deltaTime;
 		if(timer >= interval)
         {
-			inputValue = Mathf.Clamp(inputValue + 5 * Time.deltaTime, -1, 1);
+			inputValue = Mathf.Clamp(inputValue + velocity * Time.deltaTime, -1, 1);
 			timer = 0f;
 		}
+
+		inputValue = isFalling && inputValue > 0 ? -inputValue : inputValue;
 		return inputValue;
 	}
+
+	private void PlayerFalling()
+    {
+		isFalling = true;
+    }
 }

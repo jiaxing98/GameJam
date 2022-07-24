@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 	public float speed = 8f;                //Player speed
 	public float coyoteDuration = .05f;     //How long the player can jump after falling
 	public float maxFallSpeed = -25f;       //Max speed player can fall
+	public float _rotateSpeed;
 
 	[Header("Jump Properties")]
 	public float jumpForce = 6.3f;          //Initial force of jump
@@ -24,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 	[Header("Status Flags")]
 	public bool isOnGround;                 //Is the player on the ground?
 	public bool isJumping;                  //Is player jumping?
+	public bool isFalling;					//Is player falling?
 
 	private PlayerInput _input;                      //The current inputs for the player
 	private BoxCollider2D _bodyCollider;             //The collider component
@@ -53,12 +55,22 @@ public class PlayerMovement : MonoBehaviour
 
 		//Record initial collider size and offset
 		_colliderStandSize = _bodyCollider.size;
+
+		Breakpoint.OnHitted += PlayerFalling;
+	}
+
+	private void OnDestroy()
+	{
+		Breakpoint.OnHitted -= PlayerFalling;
 	}
 
 	private void FixedUpdate()
 	{
 		//Check the environment to determine status
 		PhysicsCheck();
+
+		//Check if the player is falling
+		FallingCheck();
 
 		//Process ground and air movements
 		GroundMovement();
@@ -77,6 +89,18 @@ public class PlayerMovement : MonoBehaviour
 		//If either ray hit the ground, the player is on the ground
 		if (leftCheck || rightCheck)
 			isOnGround = true;
+	}
+
+	private void FallingCheck()
+    {
+		if (!isFalling) return;
+
+		_rigidBody.constraints = RigidbodyConstraints2D.None;
+		if(_input.horizontal < 0)
+        {
+			print(_input.horizontal);
+			_rigidBody.AddTorque(_input.horizontal, ForceMode2D.Force);
+		}
 	}
 
 	private void GroundMovement()
@@ -130,6 +154,11 @@ public class PlayerMovement : MonoBehaviour
 		//If player is falling to fast, reduce the Y velocity to the max
 		if (_rigidBody.velocity.y < maxFallSpeed)
 			_rigidBody.velocity = new Vector2(_rigidBody.velocity.x, maxFallSpeed);
+	}
+
+	private void PlayerFalling()
+	{
+		isFalling = true;
 	}
 
 	private void FlipCharacterDirection()
