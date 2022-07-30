@@ -18,14 +18,20 @@ public class PlayerInput : MonoBehaviour
 
 	[Header("Tweak Value")]
 	public float interval;
-	public float velocity;
+	public float velocityPerSecond;
 	public float inputValue = 0.3f;
 
 	private bool readyToClear;            //Bool used to keep input in sync
 	private float timer;
 
+	private float _initialVelocityPerSecond;
+	private float _initialInputValue;
+
     private void Start()
     {
+		_initialVelocityPerSecond = velocityPerSecond;
+		_initialInputValue = inputValue;
+
 		Breakpoint.OnHitted += PlayerFalling;
     }
 
@@ -82,11 +88,11 @@ public class PlayerInput : MonoBehaviour
 
 	private float Acceleration(bool isFalling)
     {
-		velocity = isFalling && velocity > 0 ? -velocity : velocity;
+		velocityPerSecond = isFalling && velocityPerSecond > 0 ? -velocityPerSecond : velocityPerSecond;
 		timer += Time.deltaTime;
 		if(timer >= interval)
         {
-			inputValue = Mathf.Clamp(inputValue + velocity * Time.deltaTime, -1, 1);
+			inputValue = Mathf.Clamp(inputValue + velocityPerSecond * Time.deltaTime, -1, 1);
 			timer = 0f;
 		}
 
@@ -95,7 +101,15 @@ public class PlayerInput : MonoBehaviour
 	}
 
 	private void PlayerFalling()
-    {
+	{
 		isFalling = true;
+	}
+
+	public void ResetToDefault()
+    {
+		Debug.Log("reset to default");
+		horizontal = 0f;
+		inputValue = _initialInputValue;
+		velocityPerSecond = _initialVelocityPerSecond;
     }
 }

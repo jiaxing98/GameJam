@@ -93,16 +93,20 @@ public class PlayerMovement : MonoBehaviour
 
 	private async void HitObstacleCheck(Transform obstacle)
     {
+		if (!gotKnockedback) return;
 		if (obstacle == null) return;
 
-		//Debug.Log($"knockBackForce: {knockBackForce}");
-		//Debug.Log($"before: {_rigidBody.position}");
 		//...add the knockback force to the rigidbody...
 		var moveDirection = transform.position - obstacle.transform.position;
 		_rigidBody.AddForce(new Vector2(moveDirection.normalized.x * knockBackForce, 0f), ForceMode2D.Impulse);
+
+		//Debug.Log($"knockBackForce: {knockBackForce}");
+		//Debug.Log($"before: {_rigidBody.position}");
 		//Debug.Log($"after: {_rigidBody.position}");
-		await Task.Delay(3000);
-    }
+		await Task.Delay(150);
+		_input.ResetToDefault();
+		gotKnockedback = false;
+	}
 
 	private void FallingCheck()
     {
@@ -177,6 +181,8 @@ public class PlayerMovement : MonoBehaviour
 
 	private void HitObstacle(Transform obstacle)
 	{
+		Debug.Log($"Hitted {obstacle}");
+		gotKnockedback = true;
 		this.obstacle = obstacle;
 	}
 
@@ -238,7 +244,6 @@ public class PlayerMovement : MonoBehaviour
 		{
 			Gizmos.DrawRay(pos + left, rayDirection * length);
 			Gizmos.DrawRay(pos + right, rayDirection * length);
-
 		}
 
 		if (!Application.isPlaying) return;
