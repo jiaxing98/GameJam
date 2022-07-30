@@ -6,13 +6,22 @@ using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
 {
-    public List<Sound> sounds = new List<Sound>();
+    private AudioSource _BGM;
+    private AudioSource _SFX;
+    private Queue<Sound> _soundQueue = new Queue<Sound>();
 
+    [SerializeField] private int _maximumSounds = 3;
+
+    public List<Sound> sounds = new List<Sound>();
     public static Action OnGameOver;
 
     protected override void Awake()
     {
         base.Awake();
+
+        var audioSources = GetComponents<AudioSource>();
+        _BGM = audioSources?[0];
+        _SFX = audioSources?[1];
 
         OnGameOver += GameOver;
 
@@ -28,13 +37,23 @@ public class SoundManager : Singleton<SoundManager>
 
     private void Start()
     {
-       // Play(Settings.SoundType.BGMStart);
+        //_BGM.Play();
+    }
+
+    private void Update()
+    {
+        if(_SFX.isPlaying == false && _soundQueue.Count > 0)
+        {
+            GetSoundInfo(_soundQueue.Dequeue());
+            _SFX.Play();
+        }
     }
 
     public void Play(Settings.SoundType soundType)
     {
         var s = sounds.Where(x => x.soundType == soundType).FirstOrDefault();
-        if (s != null) s.source.Play();
+        if (s != null && _soundQueue.Count < _maximumSounds) 
+            _soundQueue.Enqueue(s);
     }
 
     public void Stop(Settings.SoundType soundType)
@@ -43,9 +62,16 @@ public class SoundManager : Singleton<SoundManager>
         if (s != null) s.source.Stop();
     }
 
-    public void GameOver()
+    private void GameOver()
     {
-        var s = sounds.Where(x => x.soundType == Settings.SoundType.BGMStart).FirstOrDefault();
-        if (s != null) s.source.Stop();
+        _BGM.Stop();
+    }
+
+    private void GetSoundInfo(Sound sound)
+    {
+        _SFX.clip = sound.clip;
+        _SFX.volume = sound.volume;
+        _SFX.pitch = sound.pitch;
+        _SFX.loop = sound.loop;
     }
 }
