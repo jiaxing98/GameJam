@@ -4,14 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : Singleton<SoundManager>
 {
     public List<Sound> sounds = new List<Sound>();
 
     public static Action OnGameOver;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         OnGameOver += GameOver;
 
         foreach (var s in sounds)
@@ -26,16 +28,16 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        Play(SoundType.BGMStart);
+       // Play(Settings.SoundType.BGMStart);
     }
 
-    public void Play(SoundType soundType)
+    public void Play(Settings.SoundType soundType)
     {
         var s = sounds.Where(x => x.soundType == soundType).FirstOrDefault();
         if (s != null) s.source.Play();
     }
 
-    public void Stop(SoundType soundType)
+    public void Stop(Settings.SoundType soundType)
     {
         var s = sounds.Where(x => x.soundType == soundType).FirstOrDefault();
         if (s != null) s.source.Stop();
@@ -43,22 +45,7 @@ public class SoundManager : MonoBehaviour
 
     public void GameOver()
     {
-        var s = sounds.Where(x => x.soundType == SoundType.BGMStart).FirstOrDefault();
+        var s = sounds.Where(x => x.soundType == Settings.SoundType.BGMStart).FirstOrDefault();
         if (s != null) s.source.Stop();
     }
-}
-
-public enum SoundType
-{
-    EasterEgg = 0,
-    Move = 1,
-    Jump = 2,
-    Tumble = 3,
-    TreeCry = 4,
-    TreeFall = 5,
-    TreeSpirit = 6,
-    HouseCrashed = 7,
-    BGMStart = 8,
-    BGMEnd = 9
-
 }

@@ -1,5 +1,6 @@
 // This script controls the player's movement and physics within the game
 
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -10,12 +11,15 @@ public class PlayerMovement : MonoBehaviour
 	public float speed = 8f;                //Player speed
 	public float coyoteDuration = .05f;     //How long the player can jump after falling
 	public float maxFallSpeed = -25f;       //Max speed player can fall
-	public float _rotateSpeed;
 
 	[Header("Jump Properties")]
 	public float jumpForce = 6.3f;          //Initial force of jump
 	public float jumpHoldForce = 1.9f;      //Incremental force when jump is held
 	public float jumpHoldDuration = .1f;    //How long the jump key can be held
+
+	[Header("KnockBack Properties")]
+	public float knockBackForce;
+	public Transform obstacle;
 
 	[Header("Environment Check Properties")]
 	public float footOffset = .4f;          //X Offset of feet raycast
@@ -25,10 +29,10 @@ public class PlayerMovement : MonoBehaviour
 	[Header("Status Flags")]
 	public bool isOnGround;                 //Is the player on the ground?
 	public bool isJumping;                  //Is player jumping?
-	public bool isFalling;					//Is player falling?
+	public bool isFalling;                  //Is player falling?
+	public bool gotKnockedback;
 
 	private PlayerInput _input;                      //The current inputs for the player
-	private BoxCollider2D _bodyCollider;             //The collider component
 	private Rigidbody2D _rigidBody;                  //The rigidbody component
 
 	private float _jumpTime;                         //Variable to hold jump duration
@@ -38,30 +42,23 @@ public class PlayerMovement : MonoBehaviour
 	private float _originalXScale;                   //Original scale on X axis
 	private int _direction = 1;                      //Direction player is facing
 
-	private Vector2 _colliderStandSize;              //Size of the standing collider
-
 	private void Start()
 	{
 		//Get a reference to the required components
 		_input = GetComponent<PlayerInput>();
 		_rigidBody = GetComponent<Rigidbody2D>();
-		_bodyCollider = GetComponent<BoxCollider2D>();
 
 		//Record the original x scale of the player
 		_originalXScale = transform.localScale.x;
 
-		//Record the player's height from the collider
-		_playerHeight = _bodyCollider.size.y;
-
-		//Record initial collider size and offset
-		_colliderStandSize = _bodyCollider.size;
-
 		Breakpoint.OnHitted += PlayerFalling;
+		Obstacle.OnHitted += HitObstacle;
 	}
 
 	private void OnDestroy()
 	{
 		Breakpoint.OnHitted -= PlayerFalling;
+		Obstacle.OnHitted -= HitObstacle;
 	}
 
 	private void FixedUpdate()
@@ -75,6 +72,9 @@ public class PlayerMovement : MonoBehaviour
 		//Process ground and air movements
 		GroundMovement();
 		MidAirMovement();
+
+		//Check if the player hits the obstacle
+		HitObstacleCheck(obstacle);
 	}
 
 	private void PhysicsCheck()
@@ -91,6 +91,19 @@ public class PlayerMovement : MonoBehaviour
 			isOnGround = true;
 	}
 
+	private async void HitObstacleCheck(Transform obstacle)
+    {
+		if (obstacle == null) return;
+
+		//Debug.Log($"knockBackForce: {knockBackForce}");
+		//Debug.Log($"before: {_rigidBody.position}");
+		//...add the knockback force to the rigidbody...
+		var moveDirection = transform.position - obstacle.transform.position;
+		_rigidBody.AddForce(new Vector2(moveDirection.normalized.x * knockBackForce, 0f), ForceMode2D.Impulse);
+		//Debug.Log($"after: {_rigidBody.position}");
+		await Task.Delay(3000);
+    }
+
 	private void FallingCheck()
     {
 		if (!isFalling) return;
@@ -98,13 +111,14 @@ public class PlayerMovement : MonoBehaviour
 		_rigidBody.constraints = RigidbodyConstraints2D.None;
 		if(_input.horizontal < 0)
         {
-			print(_input.horizontal);
 			_rigidBody.AddTorque(_input.horizontal, ForceMode2D.Force);
 		}
 	}
 
 	private void GroundMovement()
 	{
+		if (gotKnockedback) return;
+
 		//Calculate the desired velocity based on inputs
 		float xVelocity = speed * _input.horizontal;
 
@@ -159,6 +173,11 @@ public class PlayerMovement : MonoBehaviour
 	private void PlayerFalling()
 	{
 		isFalling = true;
+	}
+
+	private void HitObstacle(Transform obstacle)
+	{
+		this.obstacle = obstacle;
 	}
 
 	private void FlipCharacterDirection()

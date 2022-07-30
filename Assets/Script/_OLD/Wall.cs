@@ -14,9 +14,9 @@ public class Wall : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.TryGetComponent<Player>(out var actor)) return;
-        if (!actor.hasDestroyed)
-        {
-            SceneManager.LoadScene("EasterEgg");
-        }
+        //if (!actor.hasDestroyed)
+        //{
+        //    SceneManager.LoadScene("EasterEgg");
+        //}
     }
 }

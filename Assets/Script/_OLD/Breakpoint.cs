@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Breakpoint : MonoBehaviour
 {
-
     public static event Action OnHitted;
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -1,35 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Tree : MonoBehaviour
 {
-    public SoundManager soundManager;
-    public Animator anim;
+    private SpriteRenderer _renderer;
+    private Animator _animator;
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
+        _renderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
     }
 
-    public void TreeCry()
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        soundManager.Play(SoundType.TreeCry);
+        if (!collider.gameObject.CompareTag(Settings.Tag.PLAYER)) return;
+        Fall();
     }
 
-    public void TreeFall()
+    public async void Fall()
     {
-        anim.SetBool("Die", true);
-        soundManager.Play(SoundType.TreeFall);
-    }
-
-    public void TreeSpirit()
-    {
-        soundManager.Play(SoundType.TreeSpirit);
-    }
-
-    public void NoMoreTree()
-    {
-        soundManager.Stop(SoundType.TreeCry);
+        SoundManager.Instance.Play(Settings.SoundType.TreeFall);
+        _animator.SetBool(Settings.Animation.TREE_FALL, true);
+        await Task.Delay(500);
+        
+        SoundManager.Instance.Play(Settings.SoundType.TreeSpirit);
+        await Task.Delay(500);
+        _renderer.sprite = ResourceManager.LoadSprite("House");
     }
 }

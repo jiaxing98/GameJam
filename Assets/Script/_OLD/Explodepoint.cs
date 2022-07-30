@@ -24,14 +24,14 @@ public class Explodepoint : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.TryGetComponent<Player>(out var player)) return;
-        if (player.hasHitted)
-        {
-            SoundManager.OnGameOver?.Invoke();
-            soundManager.Stop(SoundType.Move);
-            soundManager.Play(SoundType.Tumble);
-            player.TruckDestroyed();
-            StartCoroutine(DisplayEndGameMessage());
-        }
+        //if (player.hasHitted)
+        //{
+        //    SoundManager.OnGameOver?.Invoke();
+        //    //soundManager.Stop(SoundType.Move);
+        //    //soundManager.Play(SoundType.Tumble);
+        //    player.TruckDestroyed();
+        //    StartCoroutine(DisplayEndGameMessage());
+        //}
 
         player.enabled = false;
     }
