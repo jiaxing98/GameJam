@@ -22,11 +22,11 @@ public class Tree : MonoBehaviour
 
     public async void Fall()
     {
-        SoundManager.Instance.Play(Settings.SoundType.TreeFall);
+        SoundManager.Instance.PlayTreeSfx(Settings.SoundType.TreeFall);
         _animator.SetBool(Settings.Animation.TREE_FALL, true);
         await Task.Delay(500);
         
-        SoundManager.Instance.Play(Settings.SoundType.TreeSpirit);
+        SoundManager.Instance.PlayTreeSfx(Settings.SoundType.TreeSpirit);
         await Task.Delay(500);
         _renderer.sprite = ResourceManager.LoadSprite("House");
     }

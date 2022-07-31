@@ -107,7 +107,7 @@ public class PlayerInput : MonoBehaviour
 
 	public void ResetToDefault()
     {
-		Debug.Log("reset to default");
+		//Debug.Log("reset to default");
 		horizontal = 0f;
 		inputValue = _initialInputValue;
 		velocityPerSecond = _initialVelocityPerSecond;
