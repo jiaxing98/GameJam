@@ -1,35 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Tree : MonoBehaviour
 {
-    public SoundManager soundManager;
-    public Animator anim;
+    private SpriteRenderer _renderer;
+    private Animator _animator;
+
+    private bool _isAnimationCompleted = false;
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
+        _renderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
     }
 
-    public void TreeCry()
+    void LateUpdate()
     {
-        soundManager.Play(SoundType.TreeCry);
+        if (_isAnimationCompleted)
+        {
+            _renderer.sprite = AddressableManager.LoadSprite("House");
+            gameObject.AddComponent<Rigidbody2D>();
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+            _animator.enabled = false;
+            _isAnimationCompleted = false;
+        }
     }
 
-    public void TreeFall()
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        anim.SetBool("Die", true);
-        soundManager.Play(SoundType.TreeFall);
+        if (!collider.gameObject.CompareTag(Settings.Tag.PLAYER)) return;
+        Fall();
     }
 
-    public void TreeSpirit()
+    public async void Fall()
     {
-        soundManager.Play(SoundType.TreeSpirit);
+        SoundManager.Instance.PlayTreeSfx(Settings.SoundType.TreeFall);
+        _animator.SetBool(Settings.Animation.TREE_FALL, true);
+        await Task.Delay(500);
+        
+        SoundManager.Instance.PlayTreeSfx(Settings.SoundType.TreeSpirit);
     }
 
-    public void NoMoreTree()
+    public void AnimationCompleted()
     {
-        soundManager.Stop(SoundType.TreeCry);
+        _isAnimationCompleted = true;
+        var sprite = AddressableManager.LoadSprite("House");
+        Debug.Log(sprite.name);
+        _renderer.sprite = AddressableManager.LoadSprite("House");
     }
 }

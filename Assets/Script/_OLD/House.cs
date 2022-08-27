@@ -15,6 +15,6 @@ public class House : MonoBehaviour
     public void HouseDestroyed()
     {
         anim.SetBool("Destroyed", true);
-        soundManager.Play(SoundType.HouseCrashed);
+        //soundManager.Play(SoundType.HouseCrashed);
     }
 }
