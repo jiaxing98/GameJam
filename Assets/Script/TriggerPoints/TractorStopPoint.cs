@@ -12,8 +12,10 @@ public class TractorStopPoint : MonoBehaviour
     [SerializeField] private float _risingDuration;
 
     [Header("Cloud")]
-    [SerializeField] private Transform _cloudTransform;
-    [SerializeField] private float _destinationX;
+    [SerializeField] private Transform _cloudTransform1;
+    [SerializeField] private Transform _cloudTransform2;
+    [SerializeField] private float _destinationX1;
+    [SerializeField] private float _destinationX2;
     [SerializeField] private float _movingDuration;
 
     [Header("Rain")]
@@ -40,12 +42,18 @@ public class TractorStopPoint : MonoBehaviour
     private void StartAnimationSequence()
     {
         Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(_cloudTransform.DOMoveX(_destinationX, _movingDuration))
+        mySequence.AppendCallback(CloudMoving)
             .AppendCallback(() => _rainParticles.ForEach(x => x.Play()))
             .AppendInterval(_rainingInterval)
             .Append(_fireSpriteRenderer.DOFade(0.0f, _fadeOutDuration))
             .Append(_floodTransform.DOMoveY(_waterLevelStop, _risingDuration))
             .AppendCallback(TractorStartMoving);
+    }
+
+    private void CloudMoving()
+    {
+        _cloudTransform1.DOMoveX(_destinationX1, _movingDuration);
+        _cloudTransform2.DOMoveX(_destinationX2, _movingDuration);
     }
 
     private void TractorStartMoving()
