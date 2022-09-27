@@ -5,27 +5,12 @@ using UnityEngine;
 
 public class Tree : MonoBehaviour
 {
-    private SpriteRenderer _renderer;
     private Animator _animator;
-
-    private bool _isAnimationCompleted = false;
+    private Rigidbody2D _rigidbody;
 
     private void Awake()
     {
-        _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
-    }
-
-    void LateUpdate()
-    {
-        if (_isAnimationCompleted)
-        {
-            _renderer.sprite = AddressableManager.LoadSprite("House");
-            gameObject.AddComponent<Rigidbody2D>();
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-            _animator.enabled = false;
-            _isAnimationCompleted = false;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -38,16 +23,21 @@ public class Tree : MonoBehaviour
     {
         SoundManager.Instance.PlayTreeSfx(Settings.SoundType.TreeFall);
         _animator.SetBool(Settings.Animation.TREE_FALL, true);
-        await Task.Delay(500);
-        
+        await Task.Delay(1000);
+
+        _rigidbody = gameObject.AddComponent<Rigidbody2D>();
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+        await Task.Delay(1000);
+        AfterRespawn();
+
         SoundManager.Instance.PlayTreeSfx(Settings.SoundType.TreeSpirit);
     }
 
-    public void AnimationCompleted()
+    public void AfterRespawn()
     {
-        _isAnimationCompleted = true;
-        var sprite = AddressableManager.LoadSprite("House");
-        Debug.Log(sprite.name);
-        _renderer.sprite = AddressableManager.LoadSprite("House");
+
+        Destroy(_rigidbody);
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+        _animator.enabled = false;
     }
 }
