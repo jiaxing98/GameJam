@@ -6,14 +6,17 @@ using UnityEngine.UI;
 
 public class Explodepoint : MonoBehaviour
 {
-    private BoxCollider2D box;
-    public SoundManager soundManager;
+    [Header("EndScene")]
+    [SerializeField] private GameObject _panel;
 
+    [Header("Old")]
+    public SoundManager soundManager;
     public GameObject bubbleRight;
     public GameObject bubbleLeft;
-
     public Button reset;
     public Button quit;
+
+    private BoxCollider2D box;
 
     private void Start()
     {
@@ -24,6 +27,9 @@ public class Explodepoint : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.TryGetComponent<Player>(out var player)) return;
+
+        _panel.SetActive(true);
+
         //if (player.hasHitted)
         //{
         //    SoundManager.OnGameOver?.Invoke();
