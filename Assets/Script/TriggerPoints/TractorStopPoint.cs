@@ -27,15 +27,20 @@ public class TractorStopPoint : MonoBehaviour
     [SerializeField] private float _fadeOutDuration;
 
     private PlayerMovement _playerMovement;
+    private PlayerInput _playerInput;
     private float _tractorSpeed;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.TryGetComponent<PlayerMovement>(out var playerMovement)) return;
+        if (!collision.gameObject.TryGetComponent<PlayerInput>(out var playerInput)) return;
 
         _playerMovement = playerMovement;
+        _playerInput = playerInput;
+
         _tractorSpeed = playerMovement.speed;
         playerMovement.speed = 0;
+        playerInput.stopActing = true;
         StartAnimationSequence();
     }
 
@@ -59,5 +64,6 @@ public class TractorStopPoint : MonoBehaviour
     private void TractorStartMoving()
     {
         _playerMovement.speed = _tractorSpeed;
+        _playerInput.stopActing = false;
     }
 }

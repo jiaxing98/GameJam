@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour
 	public bool jumpHeld;			//Bool that stores jump pressed
 	public bool jumpPressed;		//Bool that stores jump held
 	public bool isFalling = false;
+	public bool stopActing = false;
 
 	[Header("Tweak Value")]
 	public float interval;
@@ -81,6 +82,8 @@ public class PlayerInput : MonoBehaviour
 		//horizontal += Input.GetAxis("Horizontal");
 		horizontal += Acceleration(isFalling);
 
+		if (stopActing) return;
+
 		//Accumulate button inputs
 		jumpPressed = jumpPressed || Input.GetButtonDown("Jump");
 		jumpHeld = jumpHeld || Input.GetButton("Jump");
@@ -103,6 +106,7 @@ public class PlayerInput : MonoBehaviour
 	private void PlayerFalling()
 	{
 		isFalling = true;
+		stopActing = true;
 	}
 
 	public void ResetToDefault()
