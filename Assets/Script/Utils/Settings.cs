@@ -13,7 +13,7 @@ public class Settings
     public struct Animation
     {
         public const string TREE_FALL = "Die";
-        public const string HOUSE_DESTROYED = "Destroyed";
+        public const string HOUSE_DESTROYED = "Destroy";
     }
 
     public enum SoundType

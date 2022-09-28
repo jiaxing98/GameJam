@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Breakpoint : MonoBehaviour
 {
+    [SerializeField] private List<GameObject> stones;
+
     public static event Action OnHitted;
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -31,6 +33,7 @@ public class Breakpoint : MonoBehaviour
             return;
         }
 
+        stones.ForEach(x => x.SetActive(false));
         OnHitted?.Invoke();
 
         //if (collision.gameObject.TryGetComponent<PlayerMovement>(out var movement))

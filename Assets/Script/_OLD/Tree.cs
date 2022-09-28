@@ -16,7 +16,15 @@ public class Tree : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (!collider.gameObject.CompareTag(Settings.Tag.PLAYER)) return;
-        Fall();
+        
+        if (!_animator.GetBool(Settings.Animation.TREE_FALL))
+        {
+            Fall();
+        }
+        else
+        {
+            HouseDestroy();
+        }
     }
 
     public async void Fall()
@@ -27,17 +35,23 @@ public class Tree : MonoBehaviour
 
         _rigidbody = gameObject.AddComponent<Rigidbody2D>();
         gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-        await Task.Delay(1000);
+        await Task.Delay(2000);
         AfterRespawn();
 
         SoundManager.Instance.PlayTreeSfx(Settings.SoundType.TreeSpirit);
     }
 
+    public void HouseDestroy()
+    {
+        SoundManager.Instance.PlayTreeSfx(Settings.SoundType.TreeFall);
+        _animator.SetBool(Settings.Animation.HOUSE_DESTROYED, true);
+        SoundManager.Instance.PlayTreeSfx(Settings.SoundType.TreeSpirit);
+    }
+
     public void AfterRespawn()
     {
-
         Destroy(_rigidbody);
         gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-        _animator.enabled = false;
+        //_animator.enabled = false;
     }
 }
