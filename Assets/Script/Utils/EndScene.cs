@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class EndScene : MonoBehaviour
 {
@@ -22,6 +23,14 @@ public class EndScene : MonoBehaviour
     [SerializeField] private float _destinationY;
     [SerializeField] private float _creditsFadeOutDuration;
 
+    [Header("Back To Menu")]
+    [SerializeField] private GameObject _backToMenuGO;
+    [SerializeField] private TMP_Text _backToMenu;
+    [SerializeField] private float _backToMenuFadeInDuration;
+
+    private bool _readyBackToMenu = false;
+    private const string MAINMENU_SCENE = "Main Menu";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +41,19 @@ public class EndScene : MonoBehaviour
         mySequence.Append(_panelImage.DOColor(_panelColor, _panelFadeInDuration))
             .Append(_quote.DOFade(1.0f, _quoteFadeInDuration))
             .Append(_quote.DOFade(0.0f, _quoteFadeOutDuration))
-            .Append(_creditsTransform.DOMoveY(_destinationY, _creditsFadeOutDuration));
+            .Append(_creditsTransform.DOMoveY(_destinationY, _creditsFadeOutDuration))
+            .AppendCallback(async () => { 
+                _backToMenuGO.SetActive(true);
+                await _backToMenu.DOFade(1.0f, _backToMenuFadeInDuration).AsyncWaitForCompletion();
+                _readyBackToMenu = true;
+            });
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space) && _readyBackToMenu)
+        {
+            SceneManager.LoadScene(MAINMENU_SCENE);
+        }
     }
 }

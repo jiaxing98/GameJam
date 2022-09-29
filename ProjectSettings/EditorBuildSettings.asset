@@ -5,14 +5,14 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/TestTerrain.unity
-    guid: a7b18139c24908c4995b730c3c8ec95e
+    path: Assets/Scenes/Main Menu.unity
+    guid: 560e43f15a864b841931a47529da5a72
   - enabled: 1
-    path: Assets/Scenes/EasterEgg.unity
-    guid: d1a8c4a83ad1f764d82c29cd96e66c6c
+    path: Assets/Scenes/Intro.unity
+    guid: ff11024d47433194ba369faf4ece56ec
+  - enabled: 1
+    path: Assets/Scenes/In-Game.unity
+    guid: 5c4ddc4b5ed31a2469e736f12d2c9b51
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 5bcedbfcf96e6774094952c9931dbff4, type: 2}
