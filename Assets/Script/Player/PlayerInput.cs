@@ -46,9 +46,6 @@ public class PlayerInput : MonoBehaviour
 		//Clear out existing input values
 		ClearInput();
 
-		//If the Game Manager says the game is over, exit
-		if (GameManager.IsGameOver()) return;
-
 		//Process keyboard, mouse, gamepad (etc) inputs
 		ProcessInputs();
 
