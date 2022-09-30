@@ -10,6 +10,7 @@ public class Intro : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private bool _hasFinished = false;
     [SerializeField] private bool _readyToGameScene = false;
+    [SerializeField] private bool _isTyping = false;
 
     [Header("Assignment")]
     [SerializeField] private string _playerName = "";
@@ -46,9 +47,23 @@ public class Intro : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space) && _isTyping) return;
+
         if (Input.GetKeyDown(KeyCode.Space) && _readyToGameScene)
         {
             SceneManager.LoadScene(GAME_SCENE);
+        }
+
+        //Special case: name typing
+        if (Input.GetKeyDown(KeyCode.Return) && _isTyping && _hasFinished)
+        {
+            _playerName = _inputField.text;
+            _inputField.gameObject.SetActive(false);
+            _isTyping = false;
+
+            _backgroundImage.sprite = _sprites[1];
+            _texts[_dialogIndex] = _texts[_dialogIndex].Replace("_name", _playerName);
+            ShowNextDialog(LONG_TEXTS);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && _hasFinished)
@@ -59,15 +74,9 @@ public class Intro : MonoBehaviour
             if (_dialogIndex == 2)
             {
                 _inputField.gameObject.SetActive(true);
+                _inputField.Select();
                 _backgroundImage.sprite = _sprites[0];
-            }
-            else if (_dialogIndex == 3)
-            {
-                _playerName = _inputField.text;
-                _inputField.gameObject.SetActive(false);
-
-                _backgroundImage.sprite = _sprites[1];
-                _texts[_dialogIndex] = _texts[_dialogIndex].Replace("_name", _playerName);
+                _isTyping = true;
             }
             else if (_dialogIndex == _texts.Count - 1)
                 _backgroundImage.sprite = _sprites[2];
