@@ -11,50 +11,33 @@ public class Explodepoint : MonoBehaviour
 
     [Header("Old")]
     public SoundManager soundManager;
-    public GameObject bubbleRight;
-    public GameObject bubbleLeft;
-    public Button reset;
-    public Button quit;
-
     private BoxCollider2D box;
+
+    private bool _isSnowballPassed = false;
+
+    public static Action onTractorPassed;
+    public static Action onTractorDestroy;
 
     private void Start()
     {
         box = GetComponent<BoxCollider2D>();
-        Breakpoint.OnHitted += OffTriggered;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.TryGetComponent<Snowball>(out var snowball))
+            _isSnowballPassed = true;
+
         if (!collision.gameObject.TryGetComponent<Player>(out var player)) return;
-
-        _panel.SetActive(true);
-
-        //if (player.hasHitted)
-        //{
-        //    SoundManager.OnGameOver?.Invoke();
-        //    //soundManager.Stop(SoundType.Move);
-        //    //soundManager.Play(SoundType.Tumble);
-        //    player.TruckDestroyed();
-        //    StartCoroutine(DisplayEndGameMessage());
-        //}
-
-        player.enabled = false;
-    }
-
-    public void OffTriggered()
-    {
-        box.isTrigger = false;
-    }
-
-    IEnumerator DisplayEndGameMessage()
-    {
-        yield return new WaitForSeconds(1f);
-        bubbleLeft.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        bubbleRight.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        reset.gameObject.SetActive(true);
-        quit.gameObject.SetActive(true);
+        
+        if (_isSnowballPassed)
+        {
+            box.isTrigger = false;
+            onTractorDestroy?.Invoke();
+        }
+        else
+        {
+            onTractorPassed?.Invoke();
+        }
     }
 }

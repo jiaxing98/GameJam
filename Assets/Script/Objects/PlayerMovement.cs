@@ -51,13 +51,13 @@ public class PlayerMovement : MonoBehaviour
 		//Record the original x scale of the player
 		_originalXScale = transform.localScale.x;
 
-		Breakpoint.OnHitted += PlayerFalling;
+		Snowball.OnHitted += PlayerFalling;
 		Obstacle.OnHitted += HitObstacle;
 	}
 
 	private void OnDestroy()
 	{
-		Breakpoint.OnHitted -= PlayerFalling;
+		Snowball.OnHitted -= PlayerFalling;
 		Obstacle.OnHitted -= HitObstacle;
 	}
 

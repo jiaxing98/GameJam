@@ -33,12 +33,12 @@ public class PlayerInput : MonoBehaviour
 		_initialVelocityPerSecond = velocityPerSecond;
 		_initialInputValue = inputValue;
 
-		Breakpoint.OnHitted += PlayerFalling;
+		Snowball.OnHitted += PlayerFalling;
     }
 
     private void OnDestroy()
     {
-		Breakpoint.OnHitted -= PlayerFalling;
+		Snowball.OnHitted -= PlayerFalling;
     }
 
     private void Update()
