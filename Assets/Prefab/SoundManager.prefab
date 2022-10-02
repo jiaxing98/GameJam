@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1822209075669646156
+--- !u!1 &2550904658641560294
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1822209075669646158}
-  - component: {fileID: 1822209075669646159}
+  - component: {fileID: 2550904658641560312}
+  - component: {fileID: 2550904658641560295}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -17,91 +17,70 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1822209075669646158
+--- !u!4 &2550904658641560312
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822209075669646156}
+  m_GameObject: {fileID: 2550904658641560294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.370726, y: -5.133191, z: -0.011326451}
+  m_LocalPosition: {x: 261.17838, y: 131.44536, z: -1.7479}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1822209075669646159
+--- !u!114 &2550904658641560295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822209075669646156}
+  m_GameObject: {fileID: 2550904658641560294}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05f7a746b35fa3447af9232a44b1cd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
+  _maximumSounds: 3
+  _bgmSounds:
   - soundType: 0
-    clip: {fileID: 8300000, guid: 2f41f0081224f284b83a37db884580b4, type: 3}
-    volume: 0.5
-    pitch: 3
+    clip: {fileID: 8300000, guid: a7ba738cbab5be24780f24c24ca645d7, type: 3}
+    volume: 1
+    pitch: 1
     loop: 1
-    source: {fileID: 0}
   - soundType: 1
-    clip: {fileID: 8300000, guid: b49dbe22a3ec6cb49b1b6b6522792ac4, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - soundType: 2
-    clip: {fileID: 8300000, guid: fb6888654a5171944ae6e57065a61c1e, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - soundType: 3
-    clip: {fileID: 8300000, guid: e014ef8e1f1939f41b4483b583190f92, type: 3}
+    clip: {fileID: 8300000, guid: 2e6e64454b5109d46b25f65d39613377, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - soundType: 4
-    clip: {fileID: 8300000, guid: a2914bfbb5d7749499813637f5ea394b, type: 3}
+    loop: 1
+  - soundType: 2
+    clip: {fileID: 8300000, guid: 1e08e2a00a29c564e93f3c87e68d86c8, type: 3}
     volume: 1
     pitch: 1
     loop: 1
-    source: {fileID: 0}
-  - soundType: 5
+  _treeSounds:
+  - soundType: 7
     clip: {fileID: 8300000, guid: b3152d160ebf0bd4da7bd2bb161053cf, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
-  - soundType: 6
-    clip: {fileID: 8300000, guid: cf443899b8c193d4fa9c2d63e206248c, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - soundType: 7
+  _houseSounds:
+  - soundType: 9
     clip: {fileID: 8300000, guid: af398e54774915e45b8097fcb08daccd, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
-  - soundType: 8
-    clip: {fileID: 8300000, guid: a7ba738cbab5be24780f24c24ca645d7, type: 3}
+  _tractorSounds:
+  - soundType: 3
+    clip: {fileID: 8300000, guid: b49dbe22a3ec6cb49b1b6b6522792ac4, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - soundType: 9
-    clip: {fileID: 8300000, guid: c4e1cd09b7c1b6c45811632dc650eafc, type: 3}
+    loop: 1
+  - soundType: 5
+    clip: {fileID: 8300000, guid: a9f94423f53633d48abce65208c7d8c9, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
-    source: {fileID: 0}
+    loop: 1

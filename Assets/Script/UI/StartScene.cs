@@ -23,6 +23,8 @@ public class StartScene : MonoBehaviour
 
     public void StartCountdown()
     {
+        SoundManager.Instance.StopPlayingSfx(Settings.SfxType.Bgm);
+        SoundManager.Instance.PlayBGM(Settings.SoundType.BGMGame);
         InvokeRepeating(nameof(Countdown), 1, 1);
     }
 
@@ -33,6 +35,7 @@ public class StartScene : MonoBehaviour
             onCountdownFinished();
             CancelInvoke();
             startScenePanel.SetActive(false);
+            SoundManager.Instance.PlayTractorSfx(Settings.SoundType.Move);
             return;
         }
 

@@ -48,5 +48,7 @@ public class GameManager : MonoBehaviour
     {
 		_endScene.gameObject.SetActive(true);
 		_tractor.GetComponent<Player>().enabled = false;
+		SoundManager.Instance.StopPlayingSfx(Settings.SfxType.Tractor);
+		SoundManager.Instance.PlayBGM(Settings.SoundType.BGMEnd);
 	}
 }

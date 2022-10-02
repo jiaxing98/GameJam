@@ -26,6 +26,9 @@ public class Snowball : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("Player")) return;
 
+        SoundManager.Instance.StopPlayingSfx(Settings.SfxType.Bgm);
+        SoundManager.Instance.StopPlayingSfx(Settings.SfxType.Tractor);
+        SoundManager.Instance.PlayTractorSfx(Settings.SoundType.Tumble);
         OnHitted?.Invoke();
     }
 }

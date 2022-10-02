@@ -43,15 +43,13 @@ public class Tree : MonoBehaviour
 
     public void HouseDestroy()
     {
-        SoundManager.Instance.PlayTreeSfx(Settings.SoundType.TreeFall);
+        SoundManager.Instance.PlayHouseSfx(Settings.SoundType.HouseDestroyed);
         _animator.SetBool(Settings.Animation.HOUSE_DESTROYED, true);
-        SoundManager.Instance.PlayTreeSfx(Settings.SoundType.TreeSpirit);
     }
 
     public void AfterRespawn()
     {
         Destroy(_rigidbody);
         gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-        //_animator.enabled = false;
     }
 }
