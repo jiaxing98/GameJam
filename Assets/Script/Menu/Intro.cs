@@ -32,8 +32,8 @@ public class Intro : MonoBehaviour
     };
 
     private const string GAME_SCENE = "In-Game";
-    private const float SHORT_TEXTS = 3f;
-    private const float LONG_TEXTS = 6f;
+    public float SHORT_TEXTS = 3f;
+    public float LONG_TEXTS = 6f;
 
     // Start is called before the first frame update
     void Start()
