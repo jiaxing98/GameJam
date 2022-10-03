@@ -18,15 +18,23 @@ public class Settings
 
     public enum SoundType
     {
-        EasterEgg = 0,
-        Move = 1,
-        Jump = 2,
-        Tumble = 3,
-        TreeCry = 4,
-        TreeFall = 5,
-        TreeSpirit = 6,
-        HouseCrashed = 7,
-        BGMStart = 8,
-        BGMEnd = 9
+        BGMStart = 0,
+        BGMGame = 1,
+        BGMEnd = 2,
+        Move = 3,
+        Jump = 4,
+        Tumble = 5,
+        TreeCry = 6,
+        TreeFall = 7,
+        TreeSpirit = 8,
+        HouseDestroyed = 9
+    }
+
+    public enum SfxType
+    {
+        Bgm = 0,
+        Tree = 1,
+        House = 2,
+        Tractor = 3
     }
 }
