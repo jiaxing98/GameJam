@@ -101,6 +101,14 @@ public class SoundManager : Singleton<SoundManager>
             _tractorSoundQueue.Enqueue(s);
     }
 
+    public void StopPlayingAll()
+    {
+        _BGM.Stop();
+        _treeSfx.Stop();
+        _houseSfx.Stop();
+        _tractorSfx.Stop();
+    }
+
     public void StopPlayingSfx(Settings.SfxType sfxType)
     {
         switch (sfxType)

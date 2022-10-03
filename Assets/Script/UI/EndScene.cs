@@ -41,8 +41,8 @@ public class EndScene : MonoBehaviour
         mySequence.Append(_panelImage.DOColor(_panelColor, _panelFadeInDuration))
             .Append(_quote.DOFade(1.0f, _quoteFadeInDuration))
             .Append(_quote.DOFade(0.0f, _quoteFadeOutDuration))
-            .Append(_creditsTransform.DOMoveY(_destinationY, _creditsFadeOutDuration))
-            .AppendCallback(async () => { 
+            .Append(_creditsTransform.DOLocalMoveY(_destinationY, _creditsFadeOutDuration))
+            .AppendCallback(async () => {
                 _backToMenuGO.SetActive(true);
                 await _backToMenu.DOFade(1.0f, _backToMenuFadeInDuration).AsyncWaitForCompletion();
                 _readyBackToMenu = true;

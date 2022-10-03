@@ -35,16 +35,18 @@ public class Tree : MonoBehaviour
 
         _rigidbody = gameObject.AddComponent<Rigidbody2D>();
         gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-        await Task.Delay(2000);
+        await Task.Delay(millisecondsDelay: 2000);
         AfterRespawn();
 
         SoundManager.Instance.PlayTreeSfx(Settings.SoundType.TreeSpirit);
     }
 
-    public void HouseDestroy()
+    public async void HouseDestroy()
     {
         SoundManager.Instance.PlayHouseSfx(Settings.SoundType.HouseDestroyed);
         _animator.SetBool(Settings.Animation.HOUSE_DESTROYED, true);
+        await Task.Delay(millisecondsDelay: 1000);
+        this.gameObject.SetActive(false);
     }
 
     public void AfterRespawn()

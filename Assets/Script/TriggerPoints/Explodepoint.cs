@@ -9,13 +9,8 @@ public class Explodepoint : MonoBehaviour
     [Header("EndScene")]
     [SerializeField] private GameObject _panel;
 
-    [Header("Old")]
-    public SoundManager soundManager;
     private BoxCollider2D box;
-
     private bool _isSnowballPassed = false;
-
-    public static Action onTractorPassed;
     public static Action onTractorDestroy;
 
     private void Start()
@@ -34,10 +29,6 @@ public class Explodepoint : MonoBehaviour
         {
             box.isTrigger = false;
             onTractorDestroy?.Invoke();
-        }
-        else
-        {
-            onTractorPassed?.Invoke();
         }
     }
 }

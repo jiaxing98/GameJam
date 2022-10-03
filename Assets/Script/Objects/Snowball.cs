@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Snowball : MonoBehaviour
@@ -14,7 +15,7 @@ public class Snowball : MonoBehaviour
     {
         _collider = GetComponent<CircleCollider2D>();
 
-        Explodepoint.onTractorPassed += AddRigidBody;
+        TriggerPoint.onTractorPassed += AddRigidBody;
     }
 
     private void AddRigidBody()

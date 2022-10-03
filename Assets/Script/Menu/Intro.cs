@@ -74,7 +74,6 @@ public class Intro : MonoBehaviour
             if (_dialogIndex == 2)
             {
                 _inputField.gameObject.SetActive(true);
-                _inputField.Select();
                 _backgroundImage.sprite = _sprites[0];
                 _isTyping = true;
             }
