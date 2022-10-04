@@ -13,7 +13,6 @@ public class Obstacle : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log($"Obstacle is hitted by {collision.gameObject.name}");
         //if (!collision.gameObject.CompareTag(Settings.Tag.PLAYER)) return;
         //if (!collision.gameObject.TryGetComponent<Rigidbody2D>(out var rb)) return;
         //if (!collision.gameObject.TryGetComponent<PlayerMovement>(out var movement)) return;

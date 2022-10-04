@@ -18,16 +18,17 @@ public class Settings
 
     public enum SoundType
     {
-        BGMStart = 0,
-        BGMGame = 1,
-        BGMEnd = 2,
-        Move = 3,
-        Jump = 4,
-        Tumble = 5,
-        TreeCry = 6,
-        TreeFall = 7,
-        TreeSpirit = 8,
-        HouseDestroyed = 9
+        BGMStart,
+        BGMFun,
+        BGMSuspense,
+        BGMEnd,
+        Move,
+        Jump,
+        Tumble,
+        TreeCry,
+        TreeFall,
+        TreeSpirit,
+        HouseDestroyed
     }
 
     public enum SfxType

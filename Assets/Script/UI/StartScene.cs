@@ -24,7 +24,7 @@ public class StartScene : MonoBehaviour
     public void StartCountdown()
     {
         SoundManager.Instance.StopPlayingSfx(Settings.SfxType.Bgm);
-        SoundManager.Instance.PlayBGM(Settings.SoundType.BGMGame);
+        SoundManager.Instance.PlayBGM(Settings.SoundType.BGMFun);
         InvokeRepeating(nameof(Countdown), 1, 1);
     }
 

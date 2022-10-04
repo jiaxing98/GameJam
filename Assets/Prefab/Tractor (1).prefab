@@ -102,8 +102,9 @@ MonoBehaviour:
   jumpHeld: 0
   jumpPressed: 0
   isFalling: 0
-  interval: 0.5
-  velocity: 5
+  stopActing: 0
+  interval: 1
+  velocityPerSecond: 0
   inputValue: 0.3
 --- !u!114 &5794829980312203512
 MonoBehaviour:
@@ -118,13 +119,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawDebugRaycasts: 1
-  speed: 8
+  speed: 10
   coyoteDuration: 0.05
   maxFallSpeed: -25
-  jumpForce: 3
+  jumpForce: 2.5
   jumpHoldForce: 1
   jumpHoldDuration: 0.1
-  knockBackForce: 1000
+  knockBackForce: 6
   obstacle: {fileID: 0}
   footOffset: 0.4
   groundDistance: 0.2
@@ -134,7 +135,7 @@ MonoBehaviour:
   isOnGround: 0
   isJumping: 0
   isFalling: 0
-  HittedAnObstacle: 0
+  gotKnockedback: 0
 --- !u!1 &5794829981106190671
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +209,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2acd4bd52ff13294da41e1cff813598d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

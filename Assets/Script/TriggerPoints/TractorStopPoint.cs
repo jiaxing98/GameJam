@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class TractorStopPoint : MonoBehaviour
 {
+    [Header("BGM")]
+    [SerializeField] private float _bgmFadingOutDuration;
+
     [Header("Flood")]
     [SerializeField] private Transform _floodTransform;
     [SerializeField] private float _waterLevelStop;
@@ -47,7 +50,8 @@ public class TractorStopPoint : MonoBehaviour
     private void StartAnimationSequence()
     {
         Sequence mySequence = DOTween.Sequence();
-        mySequence.AppendCallback(CloudMoving)
+        mySequence.AppendCallback(() => SoundManager.Instance.BGMFading(0f, _bgmFadingOutDuration))
+            .AppendCallback(CloudMoving)
             .AppendCallback(() => _rainParticles.ForEach(x => x.Play()))
             .AppendInterval(_rainingInterval)
             .Append(_fireSpriteRenderer.DOFade(0.0f, _fadeOutDuration))

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class SoundManager : Singleton<SoundManager>
 {
@@ -99,6 +100,17 @@ public class SoundManager : Singleton<SoundManager>
         var s = _tractorSounds.Where(x => x.soundType == soundType).FirstOrDefault();
         if (s != null && _tractorSoundQueue.Count < _maximumSounds)
             _tractorSoundQueue.Enqueue(s);
+    }
+
+    public void BGMFading(float to, float duration)
+    {
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.AppendCallback(async () =>
+        {
+            await _BGM.DOFade(to, duration).AsyncWaitForCompletion();
+            PlayBGM(Settings.SoundType.BGMSuspense);
+            _BGM.DOFade(1, duration);
+        });
     }
 
     public void StopPlayingAll()

@@ -57,29 +57,34 @@ MonoBehaviour:
     pitch: 1
     loop: 1
   - soundType: 2
+    clip: {fileID: 8300000, guid: 629da3a1b9bdb47478b683450066403e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+  - soundType: 3
     clip: {fileID: 8300000, guid: 1e08e2a00a29c564e93f3c87e68d86c8, type: 3}
     volume: 1
     pitch: 1
     loop: 1
   _treeSounds:
-  - soundType: 7
+  - soundType: 8
     clip: {fileID: 8300000, guid: b3152d160ebf0bd4da7bd2bb161053cf, type: 3}
     volume: 1
     pitch: 1
     loop: 0
   _houseSounds:
-  - soundType: 9
+  - soundType: 10
     clip: {fileID: 8300000, guid: af398e54774915e45b8097fcb08daccd, type: 3}
     volume: 1
     pitch: 1
     loop: 0
   _tractorSounds:
-  - soundType: 3
+  - soundType: 4
     clip: {fileID: 8300000, guid: b49dbe22a3ec6cb49b1b6b6522792ac4, type: 3}
     volume: 1
     pitch: 1
     loop: 1
-  - soundType: 5
+  - soundType: 6
     clip: {fileID: 8300000, guid: a9f94423f53633d48abce65208c7d8c9, type: 3}
     volume: 1
     pitch: 1
