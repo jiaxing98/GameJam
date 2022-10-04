@@ -27,7 +27,7 @@ public class Intro : MonoBehaviour
         "Ah yes, you must be the new tractor operator!",
         "Please type your name down here and \nwe will process the papers for you shortly",
         "Hi _name, nice to meet you! \nHere is your license and tractor key",
-        "Now go out there are cut down those trees! \nFor the development of mankind!!!",
+        "Now go out there and cut down those trees! \nFor the development of mankind!!!",
         "Controls: \nPress ‘Spacebar’ to jump over obstacles!"
     };
 
