@@ -9,24 +9,6 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private GameObject _tractor;
 
 	private float _tractorSpeed;
-	private static GameManager Instance;
-
-	void Awake()
-	{
-		//If a Game Manager exists and this isn't it...
-		if (Instance != null && Instance != this)
-		{
-			//...destroy this and exit. There can only be one Game Manager
-			Destroy(gameObject);
-			return;
-		}
-
-		//Set this as the current game manager
-		Instance = this;
-
-		//Persis this object between scene reloads
-		DontDestroyOnLoad(gameObject);
-	}
 
     void Start()
     {
@@ -39,7 +21,13 @@ public class GameManager : MonoBehaviour
 		_countdown.StartCountdown();
 	}
 
-	private void TractorStartMoving()
+    private void OnDestroy()
+    {
+		StartScene.onCountdownFinished -= TractorStartMoving;
+		Explodepoint.onTractorDestroy -= GameOver;
+	}
+
+    private void TractorStartMoving()
     {
 		_tractor.GetComponent<PlayerMovement>().speed = _tractorSpeed;
 	}

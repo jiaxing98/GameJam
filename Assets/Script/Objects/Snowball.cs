@@ -21,6 +21,7 @@ public class Snowball : MonoBehaviour
     private void AddRigidBody()
     {
         _rigidbody = this.gameObject.AddComponent<Rigidbody2D>();
+        TriggerPoint.onTractorPassed -= AddRigidBody;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
