@@ -20,11 +20,17 @@ public class Snowball : MonoBehaviour
         TriggerPoint.onTractorPassed += AddRigidBody;
     }
 
+    private void OnDestroy()
+    {
+        TriggerPoint.onTractorPassed -= AddRigidBody;
+    }
+
     private void AddRigidBody()
     {
+        if (GetComponent<Rigidbody2D>() != null) return;
+
         _rigidbody = this.gameObject.AddComponent<Rigidbody2D>();
         _rigidbody.velocity = new Vector2(-_speed, _rigidbody.velocity.y);
-        TriggerPoint.onTractorPassed -= AddRigidBody;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

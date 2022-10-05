@@ -12,6 +12,11 @@ public class StoneManager : MonoBehaviour
         Snowball.OnHitted += HideAllStones;
     }
 
+    private void OnDestroy()
+    {
+        Snowball.OnHitted -= HideAllStones;
+    }
+
     private void HideAllStones()
     {
         stones.ForEach(x => x.SetActive(false));
