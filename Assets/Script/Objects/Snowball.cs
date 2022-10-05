@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Snowball : MonoBehaviour
 {
+    [SerializeField] private float _speed;
+
     private Rigidbody2D _rigidbody;
     private CircleCollider2D _collider;
 
@@ -21,6 +23,7 @@ public class Snowball : MonoBehaviour
     private void AddRigidBody()
     {
         _rigidbody = this.gameObject.AddComponent<Rigidbody2D>();
+        _rigidbody.velocity = new Vector2(-_speed, _rigidbody.velocity.y);
         TriggerPoint.onTractorPassed -= AddRigidBody;
     }
 
